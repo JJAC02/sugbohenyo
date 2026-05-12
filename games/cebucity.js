@@ -1,3 +1,5 @@
+
+
 class MainScene extends Phaser.Scene {
     constructor() {
         super('MainScene');
@@ -7,17 +9,17 @@ class MainScene extends Phaser.Scene {
         this.load.image('rajahH_idle', '/sugbohenyo/games/assets/rajahH/rajahH.png');
         this.load.image('rajahH_walk', '/sugbohenyo/games/assets/rajahH/rajahH_walk.png');
         this.load.image('rajahH_jump', '/sugbohenyo/games/assets/rajahH/rajahH_jump.png');
-        this.load.image('bg', '/sugbohenyo/games/assets/moalboal/bg_moalboal.png');
-        this.load.image('grass', '/sugbohenyo/games/assets/moalboal/sandground.png');
-        this.load.image('xs_log', '/sugbohenyo/games/assets/moalboal/fishlog.png');
-        this.load.image('s_log', '/sugbohenyo/games/assets/moalboal/fishlog.png');
-        this.load.image('med_log', '/sugbohenyo/games/assets/moalboal/fishlog.png');
-        this.load.image('l_log', '/sugbohenyo/games/assets/moalboal/fishlog.png');
-        this.load.image('falls', '/sugbohenyo/games/assets/moalboal/coral.png');
-        this.load.image('banig', '/sugbohenyo/games/assets/moalboal/shell.png');
-        this.load.image('enemy', '/sugbohenyo/games/assets/moalboal/sardine.png');
-        this.load.image('enemy_walk1', '/sugbohenyo/games/assets/moalboal/sardine.png');
-        this.load.image('enemy_walk2', '/sugbohenyo/games/assets/moalboal/sardine.png');
+        this.load.image('bg', '/sugbohenyo/games/assets/badian/bg_badian.png');
+        this.load.image('grass', '/sugbohenyo/games/assets/badian/badian_ground.png');
+        this.load.image('xs_log', '/sugbohenyo/games/assets/logs/xs_log.png');
+        this.load.image('s_log', '/sugbohenyo/games/assets/logs/s_log.png');
+        this.load.image('med_log', '/sugbohenyo/games/assets/logs/med_log.png');
+        this.load.image('l_log', '/sugbohenyo/games/assets/logs/l_log.png');
+        this.load.image('falls', '/sugbohenyo/games/assets/badian/waterfalls_badian.png');
+        this.load.image('banig', '/sugbohenyo/games/assets/badian/banig.png');
+        this.load.image('enemy', '/sugbohenyo/games/assets/snake/snake0.png');
+        this.load.image('enemy_walk1', '/sugbohenyo/games/assets/snake/snake1.png');
+        this.load.image('enemy_walk2', '/sugbohenyo/games/assets/snake/snake2.png');
     }
 
     showDialogue() {
@@ -180,20 +182,23 @@ class MainScene extends Phaser.Scene {
             bg.setScale(5); // (scale) scales the background image to fit the desired size for the level, ensuring it covers the entire area without distortion
         }
 
-        let ground = this.physics.add.staticGroup();
-        for (let x = 0; x < 600; x += 64) {
-            let tile = ground.create(x, 270, 'grass');
-            tile.setScale(2).refreshBody();
+        let ground = this.physics.add.staticGroup(); // creates a static physics group called 'ground' that will be used to create the ground tiles for the level, allowing the player to collide with them and walk on them
+        for (let x = 0; x < 600; x += 128) {
+            let tile = ground.create(x, 275, 'grass'); // (x, y, key)
+            tile.setScale(3).refreshBody(); // .refreshbody() updates the physics body of the tile after scaling, ensuring that the collision detection works correctly with the new size of the tile.
+            tile.refreshBody();
         }
 
-        for (let x = 750; x < 1400; x += 64) {
-            let tile = ground.create(x, 270, 'grass');
-            tile.setScale(2).refreshBody();
+        for (let x = 750; x < 1400; x += 128) {
+            let tile = ground.create(x, 275, 'grass'); // (x, y, key)
+            tile.setScale(3).refreshBody(); // .refreshbody() updates the physics body of the tile after scaling, ensuring that the collision detection works correctly with the new size of the tile.
+            tile.refreshBody();
         }
 
-        for (let x = 1650; x < 3000; x += 64) {
-            let tile = ground.create(x, 270, 'grass');
-            tile.setScale(2).refreshBody();
+        for (let x = 1650; x < 3000; x += 128) {
+            let tile = ground.create(x, 275, 'grass'); // (x, y, key)
+            tile.setScale(3).refreshBody(); // .refreshbody() updates the physics body of the tile after scaling, ensuring that the collision detection works correctly with the new size of the tile.
+            tile.refreshBody();
         }
 
         this.instrucText = this.add.text(30, 100, 'Use ->, <- to move', {
@@ -235,32 +240,26 @@ class MainScene extends Phaser.Scene {
 
         this.enemies = this.physics.add.group();
 
-        let enemy1 = this.enemies.create(600, 220, 'enemy');
-        enemy1.setScale(1);
+        let enemy1 = this.enemies.create(600, 220, 'enemy_walk1');
+        enemy1.setScale(.8);
         enemy1.setVelocityX(-90);
-        enemy1.minX = 550;
-        enemy1.maxX = 680;
 
-        let enemy2 = this.enemies.create(900, 220, 'enemy');
-        enemy2.setScale(1);
+        let enemy2 = this.enemies.create(900, 220, 'enemy_walk1');
+        enemy2.setScale(.8);
         enemy2.setVelocityX(-90);
         enemy2.minX = 950;
         enemy2.maxX = 1030;
 
-        let enemy3 = this.enemies.create(1700, 220, 'enemy');
-        enemy3.setScale(1);
+        let enemy3 = this.enemies.create(1390, 220, 'enemy_walk1');
+        enemy3.setScale(.8);
         enemy3.setVelocityX(-90);
-        enemy3.minX = 1650;
-        enemy3.maxX = 1850;
-        
 
         this.player = this.physics.add.sprite(20, 130, 'rajahH_idle'); //(x, y, key)
         this.player.setScale(.09);
         this.player.setCollideWorldBounds(true);
         this.physics.world.setBoundsCollision(true, true, true, false);
 
-        this.falls = this.physics.add.staticImage(1934, 252, 'falls');
-        this.falls.setOrigin(0.5, 1);   // anchor to bottom-center
+        this.falls = this.physics.add.staticImage(1934, 200, 'falls');
         this.falls.setScale(3);
         this.falls.refreshBody();
 
@@ -283,9 +282,9 @@ class MainScene extends Phaser.Scene {
         );
 
         this.dialogues = [
-            "Lapu-Lapu: The waters of Moalboal shine like paradise itself...",
-            "Lapu-Lapu: Beneath these waves swim endless schools of sardines protected by the people of this coast.",
-            "Lapu-Lapu: I must cross these shores carefully and seek the wisdom of the seafarers."
+            "Lapu-Lapu: Sugbo stands as the center of trade and power across the islands...",
+            "Lapu-Lapu: Merchants from distant lands gather here, bringing wealth, stories, and danger.",
+            "Lapu-Lapu: I must move quickly through the city and deliver the message to its leaders."
         ];
 
         this.dialogIndex = 0;
@@ -329,7 +328,7 @@ class MainScene extends Phaser.Scene {
         this.maxReachedX = this.player.x; // keeps track of the furthest horizontal position the player has reached, used to prevent the camera from moving back to areas the player has already passed
         this.prevCamX = 0;
         this.input.keyboard.on('keydown-ESC', () => {
-            window.location.href = '../adventure.html';
+            window.location.href = '/adventure';
         });
     }
 
@@ -369,7 +368,7 @@ class MainScene extends Phaser.Scene {
             }
 
             // flip depending on direction
-            enemy.flipX = enemy.body.velocity.x > 0;
+            enemy.flipX = enemy.body.velocity.x < 0;
         });
         let isMoving = false;
         let cam = this.cameras.main;
@@ -464,11 +463,10 @@ class GameOverScene extends Phaser.Scene {
             this.scene.start('MainScene');
         });
         this.input.keyboard.on('keydown-ESC', () => {
-            window.location.href = '../adventure.html';
+            window.location.href = '/adventure';
         });
     }
 }
-
 
 class QuizScene extends Phaser.Scene {
     constructor() {
@@ -486,28 +484,28 @@ class QuizScene extends Phaser.Scene {
 
         this.questions = [
             {
-                question: "What is the meaning of Moalboal’s title “Dagway sa Paraiso”?",
-                answers: ["The Hidden Island", "The Face of Paradise", "The Land of Waterfalls"],
-                correct: 1
-            },
-            {
-                question: "What famous marine phenomenon can be seen in Moalboal year-round?",
-                answers: ["Sardine Run", "Whale Shark Migration", "Tsunami Waves"],
+                question: "What makes Cebu City historically significant in the Philippines?",
+                answers: ["First Spanish settlement", "First airport in the country", "First volcano discovered"],
                 correct: 0
             },
             {
-                question: "What is the name of Moalboal’s famous rocky islet?",
-                answers: ["Sumilon Island", "Bantayan Island", "Pescador Island"],
+                question: "Which event introduced Christianity in the Philippines?",
+                answers: ["Arrival of Ferdinand Magellan", "American occupation", "Japanese invasion"],
+                correct: 0
+            },
+            {
+                question: "What festival is Cebu City most famous for?",
+                answers: ["Ati-Atihan Festival", "Panagbenga Festival", "Sinulog Festival"],
                 correct: 2
             },
             {
-                question: "What festival celebrates Moalboal’s coral reefs?",
-                answers: ["Sinulog Festival", "Kagasangan Festival", "Toslob Festival"],
-                correct: 1
+                question: "Which landmark symbolizes the arrival of Christianity?",
+                answers: ["Magellan’s Cross", "Rizal Monument", "Banaue Rice Terraces"],
+                correct: 0
             },
             {
-                question: "What does the word “Bocal-bocal,” the origin of Moalboal’s name, describe?",
-                answers: ["Bubbling freshwater springs", "Strong ocean waves", "Flying fish"],
+                question: "What fort in Cebu City protected the port from attacks?",
+                answers: ["Fort San Pedro", "Intramuros", "Fort Santiago"],
                 correct: 0
             }
         ];
@@ -646,7 +644,7 @@ class RewardScene extends Phaser.Scene {
         // ADD YOUR ITEM IMAGE
         this.load.image(
             'artifact',
-            '/sugbohenyo/games/assets/moalboal/sardines.png'
+            '/sugbohenyo/games/assets/cebucity/cross_relic.png'
         );
     }
 
@@ -707,7 +705,7 @@ class RewardScene extends Phaser.Scene {
             this.add.text(
                 256,
                 180,
-                "You obtained:\nSardines of Panagsama",
+                "You obtained:\nCross of Sugbo",
                 {
                     fontSize: '24px',
                     fill: '#ffffff',
@@ -718,7 +716,7 @@ class RewardScene extends Phaser.Scene {
             this.add.text(
                 256,
                 225,
-                "A relic symbolizing Moalboal’s famous\nSardine Run and the abundance of the sea.",
+                "A sacred relic symbolizing Cebu’s\nrich history, faith, and unity.",
                 {
                     fontSize: '14px',
                     fill: '#ffffaa',
@@ -783,7 +781,7 @@ class EndScene extends Phaser.Scene {
             this.scene.start('MainScene');
         });
         this.input.keyboard.on('keydown-ESC', () => {
-            window.location.href = '../adventure.html';
+            window.location.href = '/adventure';
         });
     }
 }

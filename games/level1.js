@@ -56,13 +56,13 @@ class StoryScene extends Phaser.Scene {
 
         this.cameras.main.fadeIn(800, 0, 0, 0); //(duration, red, green, blue) 
         this.dialogues = [ // array of strings that will be displayed as dialogue in the story scene
-            "Before the arrival of colonizers, Cebu was a thriving and peaceful island nation...",
-            "Its people lived in organized communities led by local rulers called Datus.",            
-            "The seas were their highways, and boats carried them across vast waters.",            
-            "Cebu became a center of trade, connecting China, India, Arabia, and neighboring islands.",            
-            "Gold, spices, silk, and pottery flowed through its busy ports.",            
-            "Foreign traders were welcomed with respect and fairness.",            
-            "But beyond the wealth of trade, the people of Cebu lived with strong culture and unity..."
+            "Lapu-Lapu: The islands of Sugbo prosper through trade, unity, and courage...",
+            "Lapu-Lapu: But rumors spread across the seas... foreign forces are drawing near.",
+            "Lapu-Lapu: The Datus of Cebu must be warned before conflict reaches our shores.",
+            "Lapu-Lapu: I have been entrusted with an important message that must travel across every corner of Sugbo.",
+            "Lapu-Lapu: From the mountains of the south to the northern coasts, I must seek allies and gather knowledge.",
+            "Lapu-Lapu: The journey will not be easy. Dangerous paths and enemies stand before me...",
+            "Lapu-Lapu: But for the future of Cebu, I will not fail."
         ];
 
         this.index = 0; // keeps track of the current dialogue index being displayed
@@ -457,9 +457,9 @@ class MainScene extends Phaser.Scene {
         );
 
         this.dialogues = [
-            "Rajah Humabon: I need to collect spices, gold, honey, and pearls to trade with the Chinese merchants...",
-            "Rajah Humabon: But the path is dangerous, with treacherous logs and lurking enemies...",
-            "Rajah Humabon: I must be careful and gather all the items!"
+            "Lapu-Lapu: Another municipality lies ahead...",
+            "Lapu-Lapu: I must deliver the message before the enemy reaches these shores.",
+            "Lapu-Lapu: The future of Sugbo depends on this journey."
         ];
 
         this.dialogIndex = 0;
@@ -702,7 +702,7 @@ class QuizScene extends Phaser.Scene {
             }
         );
 
-        this.scoreText = this.add.text(60, 10,
+        this.scoreText = this.add.text(130, 10,
             'Score: ' + this.score,
             {
                 fontSize: '16px',
@@ -826,7 +826,7 @@ class RewardScene extends Phaser.Scene {
         // ADD YOUR ITEM IMAGE
         this.load.image(
             'artifact',
-            './sugbohenyo/games/assets/pre-colonial/gold.png'
+            './sugbohenyo/games/assets/pre-colonial/pearl.png'
         );
     }
 
@@ -886,7 +886,7 @@ class RewardScene extends Phaser.Scene {
 
             this.add.text(
                 256,
-                190,
+                180,
                 "You obtained:\nPearl of Sugbo",
                 {
                     fontSize: '24px',
@@ -897,8 +897,8 @@ class RewardScene extends Phaser.Scene {
 
             this.add.text(
                 256,
-                235,
-                "A treasure symbolizing Cebu's\nthriving trade culture.",
+                225,
+                "The local Datu has recognized your bravery\nand entrusted you with this treasure.",
                 {
                     fontSize: '14px',
                     fill: '#ffffaa',
@@ -908,7 +908,7 @@ class RewardScene extends Phaser.Scene {
 
             this.add.text(
                 256,
-                270,
+                260,
                 "Press SPACE to continue",
                 {
                     fontSize: '12px',
@@ -937,12 +937,12 @@ class EndScene extends Phaser.Scene {
     create() {
         this.cameras.main.fadeIn(800, 0, 0, 0);
 
-        this.add.text(256, 120, "Pre-Colonial Era Complete", {
+        this.add.text(256, 120, "Message Delivered", {
             fontSize: '32px',
             fill: '#ffffff'
         }).setOrigin(0.5);
 
-        this.add.text(256, 160, "History Fulfilled", {
+        this.add.text(256, 160, "Lapu-Lapu: The people stand united.", {
             fontSize: '16px',
             fill: '#ffffff'
         }).setOrigin(0.5);
